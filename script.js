@@ -11,7 +11,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // 1. إعدادات المتجر (اكتب 20 ثم رقم الواتساب بدون صفر في البداية)
-const whatsappNumber = "201095458846"
+const whatsappNumber = "201000000000";
 const adminPassword = "1234";
 
 // 2. بيانات مشروعك على Firebase
@@ -106,7 +106,7 @@ window.openProductDetails = function (id) {
     ? `✓ الكمية المتاحة: ${product.stock} قطعة`
     : "✓ متوفر في المخزن";
   document.getElementById("pm-desc").textContent =
-    product.description || "منتج أصلي عالي الجودة من Ahmed Store مع خدمة التوصيل السريع.";
+    product.description || "منتج أصلي عالي الجودة من Jimmy Shaw مع خدمة التوصيل السريع.";
 
   document.getElementById("pm-add-btn").onclick = () => {
     window.addToCart(product.id);
@@ -282,7 +282,7 @@ document.getElementById("checkout-btn").addEventListener("click", () => {
     return alert("من فضلك اكتب الاسم ورقم الموبايل والمحافظة والعنوان بالتفصيل لإتمام الطلب.");
   }
 
-  let message = "🛍️ *طلب جديد من Ahmed Store*\n\n";
+  let message = "🛍️ *طلب جديد من Jimmy Shaw*\n\n";
   message += "👤 *بيانات العميل:*\n";
   message += `• الاسم: ${customerName}\n`;
   message += `• الموبايل: ${customerPhone}\n`;
