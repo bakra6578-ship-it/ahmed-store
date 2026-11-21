@@ -3,113 +3,173 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ahmed Store</title>
+  <title>Ahmed Store | منتجات العناية بالشعر</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- الهيدر -->
-  <header class="navbar">
-    <div class="container nav-content">
-      <div>
-        <h1 class="logo">Ahmed <span>Store</span></h1>
-        <p class="tagline">كل اللي تحتاجه في مكان واحد</p>
+  <!-- شريط أمازون العلوي الرئيسي -->
+  <header class="amz-header">
+    <div class="amz-nav-main">
+      <a href="#home" class="amz-logo">
+        <span class="logo-text">Ahmed<span>Store</span></span>
+        <span class="logo-smile"></span>
+      </a>
+
+      <div class="amz-deliver">
+        <span class="deliver-small">التوصيل إلى</span>
+        <span class="deliver-bold">📍 مصر</span>
       </div>
-      <nav class="nav-links">
-        <a href="#home">الرئيسية</a>
-        <a href="#products">المنتجات</a>
-        <a href="#contact">تواصل معنا</a>
-      </nav>
-      <div class="nav-actions">
-        <button id="cart-btn" class="btn btn-primary">🛒 السلة (<span id="cart-count">0</span>)</button>
+
+      <div class="amz-search">
+        <select id="search-category" class="search-select" aria-label="القسم">
+          <option value="all">الكل</option>
+          <option value="كريمات الشعر">كريمات الشعر</option>
+          <option value="زيوت الشعر">زيوت الشعر</option>
+          <option value="عناية متكاملة">عناية متكاملة</option>
+        </select>
+        <input type="text" id="search-input" class="search-input" placeholder="ابحث عن كريم فاتيكا، زيت أملا..." />
+        <button id="search-btn" class="search-btn" aria-label="بحث">🔍</button>
       </div>
+
+      <button id="cart-btn" class="amz-cart-btn">
+        <div class="cart-icon-wrap">
+          <span id="cart-count" class="cart-badge">0</span>
+          <span class="cart-icon">🛒</span>
+        </div>
+        <span class="cart-label">العربة</span>
+      </button>
     </div>
+
+    <!-- الشريط الفرعي للأقسام -->
+    <nav class="amz-subnav">
+      <button class="subnav-btn active" data-category="all">☰ كل المنتجات</button>
+      <button class="subnav-btn" data-category="كريمات الشعر">كريمات الشعر</button>
+      <button class="subnav-btn" data-category="زيوت الشعر">زيوت الشعر</button>
+      <button class="subnav-btn" data-category="عناية متكاملة">عناية متكاملة</button>
+      <span class="subnav-promo">⚡ منتجات أصلية 100% — الدفع عند الاستلام</span>
+    </nav>
   </header>
 
-  <!-- الواجهة الرئيسية -->
-  <section id="home" class="hero">
-    <div class="container">
-      <h2>أهلاً بك في Ahmed Store</h2>
-      <p>اطلب منتجك الآن وسيصلك حتى باب البيت</p>
-      <a href="#products" class="btn btn-primary hero-btn">تصفح المنتجات</a>
+  <!-- بانر العروض الرئيسي -->
+  <section id="home" class="amz-hero">
+    <div class="amz-hero-content">
+      <span class="hero-tag">عروض Ahmed Store للعناية بالشعر</span>
+      <h1>أفضل منتجات العناية بالشعر بأقوى الأسعار</h1>
+      <p>اطلب الآن والدفع عند الاستلام — شحن سريع لجميع المحافظات</p>
+      <a href="#products" class="btn-amz-yellow hero-cta">تسوق العروض الآن</a>
     </div>
   </section>
 
-  <main class="container">
-    <!-- لوحة الإدارة السرية (تظهر لك إنت فقط بعد إدخال الرقم السري) -->
+  <main class="amz-container">
+    <!-- لوحة الإدارة السرية (تظهر لصاحب المتجر فقط بعد إدخال الرقم السري) -->
     <section id="admin-panel" class="admin-panel hidden">
       <div class="admin-header">
-        <h3>⚙️ لوحة إدارة المتجر (خاصة بصاحب المتجر فقط)</h3>
-        <button id="logout-admin-btn" class="btn btn-outline">خروج من الإدارة</button>
+        <h3>⚙️ لوحة تحكم البائع — إضافة وإدارة المنتجات</h3>
+        <button id="logout-admin-btn" class="btn-admin-outline">خروج من الإدارة</button>
       </div>
 
       <form id="add-product-form" class="admin-form">
         <input type="text" id="p-name" placeholder="اسم المنتج" required />
-        <input type="number" id="p-price" placeholder="السعر (بالجنيه)" min="1" required />
+        <input type="number" id="p-price" placeholder="السعر الحالي (جنيه)" min="1" required />
+        <input type="number" id="p-old-price" placeholder="السعر قبل الخصم (اختياري)" min="1" />
         <select id="p-category">
-          <option value="إلكترونيات">إلكترونيات</option>
-          <option value="ملابس">ملابس</option>
-          <option value="إكسسوارات">إكسسوارات</option>
+          <option value="كريمات الشعر">كريمات الشعر</option>
+          <option value="زيوت الشعر">زيوت الشعر</option>
+          <option value="عناية متكاملة">عناية متكاملة</option>
         </select>
+        <input type="text" id="p-desc" placeholder="وصف قصير ومميزات المنتج" />
         <div class="file-input-box">
-          <label for="p-image-file">اختر صورة المنتج من جهازك:</label>
+          <label for="p-image-file">صورة المنتج من جهازك:</label>
           <input type="file" id="p-image-file" accept="image/*" required />
         </div>
-        <button type="submit" class="btn btn-primary">+ إضافة المنتج</button>
+        <button type="submit" class="btn-amz-orange">+ إضافة المنتج للمتجر</button>
       </form>
 
       <div class="publish-box">
-        <p><strong>مهم جداً:</strong> بعد إضافة أو حذف أي منتج، اضغط على الزر الأخضر بالأسفل لتحميل ملف <code>script.js</code> المحدّث وارفعه على GitHub عشان يظهر لكل العملاء:</p>
-        <button id="download-script-btn" class="btn btn-success">⬇️ تحميل ملف script.js المحدّث للنشر</button>
+        <p><strong>خطوة النشر للزوار:</strong> بعد إضافة أو حذف أي منتج، اضغط على الزر الأخضر لتحميل ملف <code>script.js</code> المحدّث وارفعه على GitHub:</p>
+        <button id="download-script-btn" class="btn-admin-green">⬇️ تحميل ملف script.js المحدّث</button>
       </div>
     </section>
 
-    <!-- قسم المنتجات -->
-    <section id="products" class="products-section">
-      <div class="section-header">
-        <h2>منتجاتنا</h2>
-        <div class="filters">
-          <button class="filter-btn active" data-category="all">الكل</button>
-          <button class="filter-btn" data-category="إلكترونيات">إلكترونيات</button>
-          <button class="filter-btn" data-category="ملابس">ملابس</button>
-          <button class="filter-btn" data-category="إكسسوارات">إكسسوارات</button>
-        </div>
+    <!-- شريط الفرز وعدد النتائج -->
+    <div id="products" class="amz-toolbar">
+      <span id="results-count" class="results-text">عرض جميع المنتجات</span>
+      <div class="sort-box">
+        <label for="sort-select">ترتيب حسب:</label>
+        <select id="sort-select">
+          <option value="featured">المميزة</option>
+          <option value="price-asc">السعر: من الأقل للأعلى</option>
+          <option value="price-desc">السعر: من الأعلى للأقل</option>
+        </select>
       </div>
+    </div>
 
-      <div id="products-grid" class="products-grid"></div>
-    </section>
+    <!-- شبكة المنتجات -->
+    <section class="products-grid" id="products-grid"></section>
   </main>
 
-  <!-- نافذة السلة وإتمام الطلب -->
+  <!-- نافذة تفاصيل المنتج -->
+  <div id="product-modal" class="modal hidden">
+    <div class="modal-content product-detail-modal">
+      <button id="close-product-btn" class="close-btn">&times;</button>
+      <div class="detail-grid">
+        <div class="detail-img-box">
+          <img id="pm-image" src="" alt="صورة المنتج" />
+        </div>
+        <div class="detail-info">
+          <span id="pm-category" class="amz-badge-cat"></span>
+          <h2 id="pm-title"></h2>
+          <div id="pm-rating" class="amz-stars"></div>
+          <hr class="amz-divider" />
+          <div class="detail-price-box">
+            <span class="currency">جنيه</span>
+            <span id="pm-price" class="big-price"></span>
+            <span id="pm-old-price" class="old-price"></span>
+          </div>
+          <p class="stock-status">✓ متوفر في المخزون — جاهز للشحن</p>
+          <p id="pm-desc" class="detail-desc"></p>
+          <div class="detail-actions">
+            <button id="pm-add-btn" class="btn-amz-yellow full-width">أضف إلى العربة</button>
+            <button id="pm-buy-btn" class="btn-amz-orange full-width">اشترِ الآن</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة عربة التسوق وإتمام الشراء عبر واتساب -->
   <div id="cart-modal" class="modal hidden">
-    <div class="modal-content">
+    <div class="modal-content cart-modal-box">
       <div class="modal-header">
-        <h3>🛒 سلة المشتريات</h3>
+        <h3>🛒 عربة التسوق</h3>
         <button id="close-cart-btn" class="close-btn">&times;</button>
       </div>
 
       <div id="cart-items" class="cart-items"></div>
 
-      <!-- بيانات العميل -->
       <div class="checkout-details">
-        <h4>بيانات التوصيل</h4>
-        <input type="text" id="c-name" class="checkout-input" placeholder="الاسم بالكامل" required />
-        <input type="tel" id="c-phone" class="checkout-input" placeholder="رقم الموبايل (واتساب)" required />
-        <textarea id="c-address" class="checkout-input" rows="2" placeholder="العنوان بالتفصيل (المحافظة، المنطقة، الشارع)" required></textarea>
+        <h4>بيانات التوصيل والدفع عند الاستلام</h4>
+        <input type="text" id="c-name" class="checkout-input" placeholder="الاسم ثلاثي بالكامل" required />
+        <input type="tel" id="c-phone" class="checkout-input" placeholder="رقم الموبايل (عليه واتساب)" required />
+        <input type="text" id="c-city" class="checkout-input" placeholder="المحافظة / المدينة" required />
+        <textarea id="c-address" class="checkout-input" rows="2" placeholder="العنوان بالتفصيل (المنطقة، الشارع، رقم العمارة والشقة)" required></textarea>
       </div>
 
       <div class="modal-footer">
-        <p class="total-text">الإجمالي: <strong id="cart-total">0</strong> جنيه</p>
-        <button id="checkout-btn" class="btn btn-success full-width">إرسال الطلب عبر واتساب 💬</button>
+        <p class="total-text">الإجمالي الفرعي: <strong id="cart-total">0</strong> جنيه</p>
+        <button id="checkout-btn" class="btn-amz-yellow full-width checkout-submit">إتمام الشراء وإرسال الطلب عبر واتساب 💬</button>
       </div>
     </div>
   </div>
 
-  <!-- الفوتر -->
-  <footer id="contact" class="footer">
-    <div class="container">
-      <p>للاستفسار والتواصل عبر واتساب</p>
-      <p class="copyright">Ahmed Store &copy; 2026</p>
+  <!-- فوتر أمازون -->
+  <footer id="contact" class="amz-footer">
+    <a href="#home" class="back-to-top">العودة إلى الأعلى ↑</a>
+    <div class="footer-body">
+      <div class="footer-logo">Ahmed<span>Store</span></div>
+      <p>تسوق بثقة — شحن سريع لجميع محافظات مصر</p>
+      <p class="copyright">جميع الحقوق محفوظة &copy; 2026 Ahmed Store</p>
       <button id="admin-login-btn" class="admin-secret-link">دخول الإدارة</button>
     </div>
   </footer>
