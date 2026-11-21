@@ -36,7 +36,7 @@
   </section>
 
   <main class="container">
-    <!-- لوحة الإدارة السرية (تظهر بعد إدخال الرقم السري) -->
+    <!-- لوحة الإدارة السرية -->
     <section id="admin-panel" class="admin-panel hidden">
       <div class="admin-header">
         <h3>⚙️ لوحة إدارة المتجر (حفظ مباشر أونلاين)</h3>
@@ -46,6 +46,7 @@
       <form id="add-product-form" class="admin-form">
         <input type="text" id="p-name" placeholder="اسم المنتج (مثال: كريم فاتيكا)" required />
         <input type="number" id="p-price" placeholder="السعر (بالجنيه)" min="1" required />
+        <input type="number" id="p-stock" placeholder="الكمية المتاحة (مثال: 20)" min="1" required />
         <select id="p-category">
           <option value="كريمات الشعر">كريمات الشعر</option>
           <option value="زيوت الشعر">زيوت الشعر</option>
@@ -103,6 +104,7 @@
         <img id="pm-image" src="" alt="صورة المنتج" class="detail-img" />
         <h3 id="pm-title" class="detail-title"></h3>
         <p id="pm-desc" class="detail-desc"></p>
+        <p id="pm-stock" class="product-stock"></p>
         <p class="detail-price"><strong id="pm-price"></strong> جنيه</p>
         <div class="card-actions">
           <button id="pm-buy-btn" class="btn btn-primary full-width">اطلب الآن</button>

@@ -72,6 +72,7 @@ function renderProducts() {
   }
 
   filtered.forEach(product => {
+    const stockText = product.stock ? `الكمية المتاحة: ${product.stock} قطعة` : "متوفر في المخزن";
     const card = document.createElement("div");
     card.className = "product-card";
     card.innerHTML = `
@@ -79,6 +80,7 @@ function renderProducts() {
       <div class="product-info">
         <span class="product-category">${product.category}</span>
         <h3 class="product-title" onclick="openProductDetails('${product.id}')">${product.name}</h3>
+        <p class="product-stock">✓ ${stockText}</p>
         <p class="product-price">${product.price} جنيه</p>
         <div class="card-actions">
           <button class="btn btn-primary full-width" onclick="buyNow('${product.id}')">اطلب الآن</button>
@@ -100,6 +102,9 @@ window.openProductDetails = function (id) {
   document.getElementById("pm-category").textContent = product.category;
   document.getElementById("pm-title").textContent = product.name;
   document.getElementById("pm-price").textContent = product.price;
+  document.getElementById("pm-stock").textContent = product.stock
+    ? `✓ الكمية المتاحة: ${product.stock} قطعة`
+    : "✓ متوفر في المخزن";
   document.getElementById("pm-desc").textContent =
     product.description || "منتج أصلي عالي الجودة من Ahmed Store مع خدمة التوصيل السريع.";
 
@@ -156,6 +161,7 @@ document.getElementById("add-product-form").addEventListener("submit", async fun
     await addDoc(productsCol, {
       name: document.getElementById("p-name").value.trim(),
       price: Number(document.getElementById("p-price").value),
+      stock: Number(document.getElementById("p-stock").value),
       category: document.getElementById("p-category").value,
       description: document.getElementById("p-desc").value.trim(),
       image: compressedImg,
@@ -186,13 +192,38 @@ window.deleteProduct = async function (id) {
   }
 };
 
-// السلة والطلب
+// السلة والكميات
 window.addToCart = function (id) {
   const product = products.find(p => p.id === id);
   if (!product) return;
+  const maxStock = product.stock || 999;
   const existing = cart.find(item => item.id === id);
-  if (existing) existing.qty += 1;
-  else cart.push({ ...product, qty: 1 });
+
+  if (existing) {
+    if (existing.qty >= maxStock) {
+      return alert(`عذراً، أقصى كمية متاحة من هذا المنتج هي ${maxStock} قطعة.`);
+    }
+    existing.qty += 1;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+  updateCartUI();
+};
+
+window.changeQty = function (id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+
+  const maxStock = item.stock || 999;
+  const newQty = item.qty + delta;
+
+  if (newQty <= 0) {
+    cart = cart.filter(i => i.id !== id);
+  } else if (newQty > maxStock) {
+    return alert(`عذراً، أقصى كمية متاحة هي ${maxStock} قطعة.`);
+  } else {
+    item.qty = newQty;
+  }
   updateCartUI();
 };
 
@@ -220,7 +251,12 @@ function updateCartUI() {
         <div class="cart-item">
           <div>
             <strong>${item.name}</strong>
-            <p>${item.price} جنيه × ${item.qty}</p>
+            <p>${item.price} جنيه للقطعة</p>
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="changeQty('${item.id}', 1)" title="زيادة">+</button>
+              <span class="qty-val">${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty('${item.id}', -1)" title="إنقاص">-</button>
+            </div>
           </div>
           <div>
             <strong>${item.price * item.qty} جنيه</strong>
