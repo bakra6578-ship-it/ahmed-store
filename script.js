@@ -12,9 +12,9 @@ import {
 
 // 1. إعدادات المتجر (اكتب 20 ثم رقم الواتساب بدون صفر في البداية)
 const whatsappNumber = "201095458846"
-const adminPassword = "1234"; // الرقم السري لدخول الإدارة
+const adminPassword = "1234";
 
-// 2. بيانات مشروعك على Firebase (جاهزة ومربوطة)
+// 2. بيانات مشروعك على Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyByqiCKaCltrl1hDL5aNL1b719nSps_JS4",
   authDomain: "ahmed-store-563e8.firebaseapp.com",
@@ -25,7 +25,6 @@ const firebaseConfig = {
   measurementId: "G-8F4Q3WFM2N"
 };
 
-// تشغيل Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const productsCol = collection(db, "products");
@@ -41,6 +40,7 @@ const cartItemsContainer = document.getElementById("cart-items");
 const cartTotal = document.getElementById("cart-total");
 const cartModal = document.getElementById("cart-modal");
 const productModal = document.getElementById("product-modal");
+const loginModal = document.getElementById("login-modal");
 const adminPanel = document.getElementById("admin-panel");
 
 if (isAdmin) {
@@ -57,7 +57,7 @@ onSnapshot(q, (snapshot) => {
   renderProducts();
 }, (error) => {
   console.error("Firebase Error:", error);
-  productsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #dc2626; padding: 20px;">تأكد من تفعيل Firestore Database في وضع الاختبار (Test mode).</p>`;
+  productsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #dc2626; padding: 20px;">تأكد من ضبط قواعد Firestore Rules على allow read, write: if true;</p>`;
 });
 
 function renderProducts() {
@@ -116,7 +116,7 @@ window.openProductDetails = function (id) {
   productModal.classList.remove("hidden");
 };
 
-// ضغط الصورة لتتحفظ بسرعة في قاعدة البيانات
+// ضغط الصورة قبل الحفظ
 function compressImage(file) {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -138,7 +138,7 @@ function compressImage(file) {
   });
 }
 
-// إضافة منتج جديد وحفظه في Firebase مباشرة
+// إضافة منتج جديد
 document.getElementById("add-product-form").addEventListener("submit", async function (e) {
   e.preventDefault();
   if (!isAdmin) return;
@@ -166,14 +166,14 @@ document.getElementById("add-product-form").addEventListener("submit", async fun
     alert("تم نشر المنتج بنجاح وظهر الآن لكل العملاء!");
   } catch (err) {
     console.error(err);
-    alert("حدث خطأ أثناء الحفظ: تأكد من تفعيل Firestore Database.");
+    alert("حدث خطأ أثناء الحفظ: تأكد من تفعيل Firestore Rules.");
   } finally {
     saveBtn.disabled = false;
     saveBtn.textContent = "+ نشر المنتج فوراً";
   }
 });
 
-// حذف منتج من Firebase مباشرة
+// حذف منتج
 window.deleteProduct = async function (id) {
   if (!isAdmin) return;
   if (!confirm("هل تريد حذف هذا المنتج نهائياً من المتجر؟")) return;
@@ -271,16 +271,28 @@ document.getElementById("checkout-btn").addEventListener("click", () => {
   cartModal.classList.add("hidden");
 });
 
-// التحكم ودخول الإدارة
+// نافذة دخول الإدارة
 document.getElementById("admin-login-btn").addEventListener("click", () => {
-  const pass = prompt("أدخل الرقم السري لإدارة المتجر:");
+  loginModal.classList.remove("hidden");
+  document.getElementById("admin-pass-input").focus();
+});
+
+document.getElementById("close-login-btn").addEventListener("click", () => {
+  loginModal.classList.add("hidden");
+});
+
+document.getElementById("login-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const pass = document.getElementById("admin-pass-input").value.trim();
   if (pass === adminPassword) {
     isAdmin = true;
     sessionStorage.setItem("ahmed_store_admin", "true");
     adminPanel.classList.remove("hidden");
+    loginModal.classList.add("hidden");
+    e.target.reset();
     renderProducts();
     window.scrollTo({ top: 0, behavior: "smooth" });
-  } else if (pass !== null) {
+  } else {
     alert("الرقم السري غير صحيح!");
   }
 });

@@ -36,15 +36,15 @@
   </section>
 
   <main class="container">
-    <!-- لوحة الإدارة السرية (تظهر لك إنت فقط بعد إدخال الرقم السري) -->
+    <!-- لوحة الإدارة السرية (تظهر بعد إدخال الرقم السري) -->
     <section id="admin-panel" class="admin-panel hidden">
       <div class="admin-header">
-        <h3>⚙️ لوحة إدارة المتجر (خاصة بصاحب المتجر فقط)</h3>
+        <h3>⚙️ لوحة إدارة المتجر (حفظ مباشر أونلاين)</h3>
         <button id="logout-admin-btn" class="btn btn-outline">خروج من الإدارة</button>
       </div>
 
       <form id="add-product-form" class="admin-form">
-        <input type="text" id="p-name" placeholder="اسم المنتج" required />
+        <input type="text" id="p-name" placeholder="اسم المنتج (مثال: كريم فاتيكا)" required />
         <input type="number" id="p-price" placeholder="السعر (بالجنيه)" min="1" required />
         <select id="p-category">
           <option value="كريمات الشعر">كريمات الشعر</option>
@@ -53,16 +53,11 @@
         </select>
         <input type="text" id="p-desc" placeholder="وصف قصير للمنتج (اختياري)" />
         <div class="file-input-box">
-          <label for="p-image-file">اختر صورة المنتج من جهازك:</label>
+          <label for="p-image-file">اختر صورة المنتج:</label>
           <input type="file" id="p-image-file" accept="image/*" required />
         </div>
-        <button type="submit" class="btn btn-primary">+ إضافة المنتج</button>
+        <button type="submit" id="save-product-btn" class="btn btn-success">+ نشر المنتج فوراً</button>
       </form>
-
-      <div class="publish-box">
-        <p><strong>مهم:</strong> بعد إضافة أو حذف أي منتج، اضغط على الزر الأخضر لتحميل ملف <code>script.js</code> المحدّث وارفعه على GitHub عشان يظهر لكل العملاء:</p>
-        <button id="download-script-btn" class="btn btn-success">⬇️ تحميل ملف script.js المحدّث للنشر</button>
-      </div>
     </section>
 
     <!-- Products Section -->
@@ -77,9 +72,25 @@
         </div>
       </div>
 
-      <div id="products-grid" class="products-grid"></div>
+      <div id="products-grid" class="products-grid">
+        <p style="grid-column: 1/-1; text-align: center; padding: 30px;">جاري تحميل المنتجات...</p>
+      </div>
     </section>
   </main>
+
+  <!-- نافذة تسجيل دخول الإدارة -->
+  <div id="login-modal" class="modal hidden">
+    <div class="modal-content login-modal">
+      <div class="modal-header">
+        <h3>🔒 دخول لوحة الإدارة</h3>
+        <button id="close-login-btn" class="close-btn">&times;</button>
+      </div>
+      <form id="login-form" class="login-form">
+        <input type="password" id="admin-pass-input" class="checkout-input" placeholder="أدخل الرقم السري (1234)" required />
+        <button type="submit" class="btn btn-primary full-width">دخول</button>
+      </form>
+    </div>
+  </div>
 
   <!-- نافذة تفاصيل المنتج -->
   <div id="product-modal" class="modal hidden">
@@ -135,6 +146,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>

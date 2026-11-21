@@ -200,25 +200,6 @@ body {
   color: var(--muted);
 }
 
-.publish-box {
-  margin-top: 16px;
-  padding: 14px;
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.publish-box p {
-  font-size: 13px;
-  color: #166534;
-  max-width: 650px;
-}
-
 /* Products */
 .products-section {
   padding: 50px 0;
@@ -316,7 +297,7 @@ body {
   gap: 8px;
 }
 
-/* Modal */
+/* Modals */
 .modal {
   position: fixed;
   inset: 0;
@@ -336,6 +317,17 @@ body {
   overflow-y: auto;
   border-radius: 12px;
   padding: 20px;
+}
+
+.login-modal {
+  max-width: 360px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
 }
 
 .detail-modal {
