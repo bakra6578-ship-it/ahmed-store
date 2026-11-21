@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,60 +8,71 @@
 </head>
 <body>
 
-  <!-- Navbar -->
+  <!-- الهيدر -->
   <header class="navbar">
     <div class="container nav-content">
       <div>
         <h1 class="logo">Ahmed <span>Store</span></h1>
-        <p class="tagline">Everything You Need In One Place</p>
+        <p class="tagline">كل اللي تحتاجه في مكان واحد</p>
       </div>
       <nav class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#products">Products</a>
-        <a href="#contact">Contact</a>
+        <a href="#home">الرئيسية</a>
+        <a href="#products">المنتجات</a>
+        <a href="#contact">تواصل معنا</a>
       </nav>
       <div class="nav-actions">
-        <button id="toggle-admin-btn" class="btn btn-outline">+ Add Product</button>
-        <button id="cart-btn" class="btn btn-primary">Cart (<span id="cart-count">0</span>)</button>
+        <button id="cart-btn" class="btn btn-primary">🛒 السلة (<span id="cart-count">0</span>)</button>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- الواجهة الرئيسية -->
   <section id="home" class="hero">
     <div class="container">
-      <h2>Welcome To Ahmed Store</h2>
-      <p>Discover Our Best Products</p>
-      <a href="#products" class="btn btn-primary hero-btn">Shop Now</a>
+      <h2>أهلاً بك في Ahmed Store</h2>
+      <p>اطلب منتجك الآن وسيصلك حتى باب البيت</p>
+      <a href="#products" class="btn btn-primary hero-btn">تصفح المنتجات</a>
     </div>
   </section>
 
   <main class="container">
-    <!-- Add Product Panel -->
+    <!-- لوحة الإدارة السرية (تظهر لك إنت فقط بعد إدخال الرقم السري) -->
     <section id="admin-panel" class="admin-panel hidden">
-      <h3>Add New Product</h3>
+      <div class="admin-header">
+        <h3>⚙️ لوحة إدارة المتجر (خاصة بصاحب المتجر فقط)</h3>
+        <button id="logout-admin-btn" class="btn btn-outline">خروج من الإدارة</button>
+      </div>
+
       <form id="add-product-form" class="admin-form">
-        <input type="text" id="p-name" placeholder="Product Name" required />
-        <input type="number" id="p-price" placeholder="Price (EGP)" min="1" required />
+        <input type="text" id="p-name" placeholder="اسم المنتج" required />
+        <input type="number" id="p-price" placeholder="السعر (بالجنيه)" min="1" required />
         <select id="p-category">
-          <option value="Electronics">Electronics</option>
-          <option value="Fashion">Fashion</option>
-          <option value="Accessories">Accessories</option>
+          <option value="إلكترونيات">إلكترونيات</option>
+          <option value="ملابس">ملابس</option>
+          <option value="إكسسوارات">إكسسوارات</option>
         </select>
-        <input type="url" id="p-image" placeholder="Image URL (optional)" />
-        <button type="submit" class="btn btn-primary">Save Product</button>
+        <div class="file-input-box">
+          <label for="p-image-file">اختر صورة المنتج من جهازك:</label>
+          <input type="file" id="p-image-file" accept="image/*" required />
+        </div>
+        <button type="submit" class="btn btn-primary">+ إضافة المنتج</button>
       </form>
+
+      <div class="publish-box">
+        <p><strong>مهم جداً:</strong> بعد إضافة أو حذف أي منتج، اضغط على الزر الأخضر بالأسفل لتحميل ملف <code>script.js</code> المحدّث وارفعه على GitHub عشان يظهر لكل العملاء:</p>
+        <button id="download-script-btn" class="btn btn-success">⬇️ تحميل ملف script.js المحدّث للنشر</button>
+      </div>
     </section>
 
-    <!-- Products Section -->
+    <!-- قسم المنتجات -->
     <section id="products" class="products-section">
       <div class="section-header">
-        <h2>Our Products</h2>
+        <h2>منتجاتنا</h2>
         <div class="filters">
-          <button class="filter-btn active" data-category="all">All</button>
-          <button class="filter-btn" data-category="Electronics">Electronics</button>
-          <button class="filter-btn" data-category="Fashion">Fashion</button>
-          <button class="filter-btn" data-category="Accessories">Accessories</button>
+          <button class="filter-btn active" data-category="all">الكل</button>
+          <button class="filter-btn" data-category="إلكترونيات">إلكترونيات</button>
+          <button class="filter-btn" data-category="ملابس">ملابس</button>
+          <button class="filter-btn" data-category="إكسسوارات">إكسسوارات</button>
         </div>
       </div>
 
@@ -69,26 +80,37 @@
     </section>
   </main>
 
-  <!-- Cart Modal -->
+  <!-- نافذة السلة وإتمام الطلب -->
   <div id="cart-modal" class="modal hidden">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Shopping Cart</h3>
+        <h3>🛒 سلة المشتريات</h3>
         <button id="close-cart-btn" class="close-btn">&times;</button>
       </div>
+
       <div id="cart-items" class="cart-items"></div>
+
+      <!-- بيانات العميل -->
+      <div class="checkout-details">
+        <h4>بيانات التوصيل</h4>
+        <input type="text" id="c-name" class="checkout-input" placeholder="الاسم بالكامل" required />
+        <input type="tel" id="c-phone" class="checkout-input" placeholder="رقم الموبايل (واتساب)" required />
+        <textarea id="c-address" class="checkout-input" rows="2" placeholder="العنوان بالتفصيل (المحافظة، المنطقة، الشارع)" required></textarea>
+      </div>
+
       <div class="modal-footer">
-        <p class="total-text">Total: <strong id="cart-total">0</strong> EGP</p>
-        <button id="checkout-btn" class="btn btn-primary full-width">Checkout</button>
+        <p class="total-text">الإجمالي: <strong id="cart-total">0</strong> جنيه</p>
+        <button id="checkout-btn" class="btn btn-success full-width">إرسال الطلب عبر واتساب 💬</button>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- الفوتر -->
   <footer id="contact" class="footer">
     <div class="container">
-      <p>Contact us: support@ahmedstore.com | +20 100 000 0000</p>
+      <p>للاستفسار والتواصل عبر واتساب</p>
       <p class="copyright">Ahmed Store &copy; 2026</p>
+      <button id="admin-login-btn" class="admin-secret-link">دخول الإدارة</button>
     </div>
   </footer>
 
