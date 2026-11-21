@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmed Store</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div>
+        <h1 class="logo">Ahmed <span>Store</span></h1>
+        <p class="tagline">Everything You Need In One Place</p>
+      </div>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="toggle-admin-btn" class="btn btn-outline">+ Add Product</button>
+        <button id="cart-btn" class="btn btn-primary">Cart (<span id="cart-count">0</span>)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <h2>Welcome To Ahmed Store</h2>
+      <p>Discover Our Best Products</p>
+      <a href="#products" class="btn btn-primary hero-btn">Shop Now</a>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- Add Product Panel -->
+    <section id="admin-panel" class="admin-panel hidden">
+      <h3>Add New Product</h3>
+      <form id="add-product-form" class="admin-form">
+        <input type="text" id="p-name" placeholder="Product Name" required />
+        <input type="number" id="p-price" placeholder="Price (EGP)" min="1" required />
+        <select id="p-category">
+          <option value="Electronics">Electronics</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Accessories">Accessories</option>
+        </select>
+        <input type="url" id="p-image" placeholder="Image URL (optional)" />
+        <button type="submit" class="btn btn-primary">Save Product</button>
+      </form>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+      <div class="section-header">
+        <h2>Our Products</h2>
+        <div class="filters">
+          <button class="filter-btn active" data-category="all">All</button>
+          <button class="filter-btn" data-category="Electronics">Electronics</button>
+          <button class="filter-btn" data-category="Fashion">Fashion</button>
+          <button class="filter-btn" data-category="Accessories">Accessories</button>
+        </div>
+      </div>
+
+      <div id="products-grid" class="products-grid"></div>
+    </section>
+  </main>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Shopping Cart</h3>
+        <button id="close-cart-btn" class="close-btn">&times;</button>
+      </div>
+      <div id="cart-items" class="cart-items"></div>
+      <div class="modal-footer">
+        <p class="total-text">Total: <strong id="cart-total">0</strong> EGP</p>
+        <button id="checkout-btn" class="btn btn-primary full-width">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="contact" class="footer">
+    <div class="container">
+      <p>Contact us: support@ahmedstore.com | +20 100 000 0000</p>
+      <p class="copyright">Ahmed Store &copy; 2026</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
