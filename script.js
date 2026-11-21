@@ -11,8 +11,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // 1. إعدادات المتجر (اكتب 20 ثم رقم الواتساب بدون صفر في البداية)
-const whatsappNumber = "201000000000";
-const adminPassword = "1234";
+const whatsappNumber = "201017990195";
+const adminPassword = "01095458846";
 
 // 2. بيانات مشروعك على Firebase
 const firebaseConfig = {

@@ -30,7 +30,7 @@
   <section id="home" class="hero">
     <div class="container">
       <h2>أهلاً بك في Jimmy Shaw</h2>
-      <p>اكتشف أفضل منتجات العناية بالشعر بأفضل الأسعار</p>
+      <p>اكتشف أفضل منتجات العناية بالشعر والبشرة والعطور والمنظفات بأفضل الأسعار</p>
       <a href="#products" class="btn btn-primary hero-btn">تسوق الآن</a>
     </div>
   </section>
@@ -44,13 +44,24 @@
       </div>
 
       <form id="add-product-form" class="admin-form">
-        <input type="text" id="p-name" placeholder="اسم المنتج (مثال: كريم فاتيكا)" required />
+        <input type="text" id="p-name" placeholder="اسم المنتج" required />
         <input type="number" id="p-price" placeholder="السعر (بالجنيه)" min="1" required />
         <input type="number" id="p-stock" placeholder="الكمية المتاحة (مثال: 20)" min="1" required />
         <select id="p-category">
-          <option value="كريمات الشعر">كريمات الشعر</option>
-          <option value="زيوت الشعر">زيوت الشعر</option>
-          <option value="عناية متكاملة">عناية متكاملة</option>
+          <option value="زيوت للشعر">زيوت للشعر</option>
+          <option value="كريمات للشعر">كريمات للشعر</option>
+          <option value="شامبو للشعر">شامبو للشعر</option>
+          <option value="شاور">شاور</option>
+          <option value="ميكب">ميكب</option>
+          <option value="برفيوم حريمي">برفيوم حريمي</option>
+          <option value="برفيوم رجالي">برفيوم رجالي</option>
+          <option value="مزيل حريمي">مزيل حريمي</option>
+          <option value="مزيل رجالي">مزيل رجالي</option>
+          <option value="ماكينات حلاقة حريمي">ماكينات حلاقة حريمي</option>
+          <option value="ماكينات حلاقة رجالي">ماكينات حلاقة رجالي</option>
+          <option value="منظفات">منظفات</option>
+          <option value="معطر">معطر</option>
+          <option value="أشياء أخرى">أشياء أخرى</option>
         </select>
         <input type="text" id="p-desc" placeholder="وصف قصير للمنتج (اختياري)" />
         <div class="file-input-box">
@@ -67,9 +78,20 @@
         <h2>منتجاتنا</h2>
         <div class="filters">
           <button class="filter-btn active" data-category="all">الكل</button>
-          <button class="filter-btn" data-category="كريمات الشعر">كريمات الشعر</button>
-          <button class="filter-btn" data-category="زيوت الشعر">زيوت الشعر</button>
-          <button class="filter-btn" data-category="عناية متكاملة">عناية متكاملة</button>
+          <button class="filter-btn" data-category="زيوت للشعر">زيوت للشعر</button>
+          <button class="filter-btn" data-category="كريمات للشعر">كريمات للشعر</button>
+          <button class="filter-btn" data-category="شامبو للشعر">شامبو للشعر</button>
+          <button class="filter-btn" data-category="شاور">شاور</button>
+          <button class="filter-btn" data-category="ميكب">ميكب</button>
+          <button class="filter-btn" data-category="برفيوم حريمي">برفيوم حريمي</button>
+          <button class="filter-btn" data-category="برفيوم رجالي">برفيوم رجالي</button>
+          <button class="filter-btn" data-category="مزيل حريمي">مزيل حريمي</button>
+          <button class="filter-btn" data-category="مزيل رجالي">مزيل رجالي</button>
+          <button class="filter-btn" data-category="ماكينات حلاقة حريمي">ماكينات حلاقة حريمي</button>
+          <button class="filter-btn" data-category="ماكينات حلاقة رجالي">ماكينات حلاقة رجالي</button>
+          <button class="filter-btn" data-category="منظفات">منظفات</button>
+          <button class="filter-btn" data-category="معطر">معطر</button>
+          <button class="filter-btn" data-category="أشياء أخرى">أشياء أخرى</button>
         </div>
       </div>
 
@@ -87,7 +109,7 @@
         <button id="close-login-btn" class="close-btn">&times;</button>
       </div>
       <form id="login-form" class="login-form">
-        <input type="password" id="admin-pass-input" class="checkout-input" placeholder="أدخل الرقم السري (1234)" required />
+        <input type="password" id="admin-pass-input" class="checkout-input" placeholder="أدخل الرقم السري" required />
         <button type="submit" class="btn btn-primary full-width">دخول</button>
       </form>
     </div>
